@@ -39,9 +39,14 @@ public class PrincipalComBusca {
 
         TituloOMDB meuFilmeOMDB = gson.fromJson(json, TituloOMDB.class);
         //System.out.println(meuFilmeOMDB);
-        Titulo meuFilme = new Titulo(meuFilmeOMDB);
-        System.out.println(meuFilme);
-
+        try {
+            Titulo meuFilme = new Titulo(meuFilmeOMDB);
+            System.out.println("Titulo convertido:");
+            System.out.println(meuFilme);
+        } catch (NumberFormatException e) {
+            System.out.println("Aconteceu um erro: " + e.getMessage());
+        }
+        System.out.println("Programa finalizou corretamente !!");
         sc.close();
     }
 }
