@@ -23,28 +23,30 @@ public class PrincipalComBusca {
 
         var endereco = "https://www.omdbapi.com/?t=" + filme + "&apikey=53fd5cbd";
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(endereco))
-                .build();
-        HttpResponse<String> response = client
-                .send(request, HttpResponse.BodyHandlers.ofString());
-
-        String json = response.body();
-        System.out.println(json);
-
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .create();
-
-        TituloOMDB meuFilmeOMDB = gson.fromJson(json, TituloOMDB.class);
-        //System.out.println(meuFilmeOMDB);
         try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(endereco))
+                    .build();
+            HttpResponse<String> response = client
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+
+            String json = response.body();
+            System.out.println(json);
+
+            Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                    .create();
+
+            TituloOMDB meuFilmeOMDB = gson.fromJson(json, TituloOMDB.class);
+            //System.out.println(meuFilmeOMDB);
             Titulo meuFilme = new Titulo(meuFilmeOMDB);
             System.out.println("Titulo convertido:");
             System.out.println(meuFilme);
         } catch (NumberFormatException e) {
             System.out.println("Aconteceu um erro: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Algum erro de argumento na busca, verifique o endereco");
         }
         System.out.println("Programa finalizou corretamente !!");
         sc.close();
