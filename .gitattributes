@@ -1,0 +1,7 @@
+# Definir arquivos de texto para terem LF no repositório e CRLF no checkout (Windows)
+* text=auto
+
+# Definir arquivos específicos para terem LF sempre
+*.sh text eol=lf
+*.java text eol=lf
+*.md text eol=lf
